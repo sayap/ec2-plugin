@@ -51,7 +51,10 @@ public class ZPoolMonitor extends PeriodicWork {
 	protected void doRun() {
         ZFSFileSystem fs=null;
         try {
-            if(isInsideEC2())
+            // Commented out because getFileSystemByMountPoint can crash the
+            // jvm process. See https://gist.github.com/sayap/9342985
+            //if(isInsideEC2())
+            if(false)
                 fs = new LibZFS().getFileSystemByMountPoint(Hudson.getInstance().getRootDir());
         } catch (LinkageError e) {
             // probably not running on OpenSolaris
